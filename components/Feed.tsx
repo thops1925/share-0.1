@@ -6,7 +6,7 @@ const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }
 	return (
 		<div className='mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3'>
 			{data.map((post: any) => (
-				<Prompt post={post} key={post._id} handleTagClick={handleTagClick} />
+				<Prompt post={post} key={post._id} handleTagClick={handleTagClick} handleEdit={undefined} handleDelete={undefined} />
 			))}
 		</div>
 	);

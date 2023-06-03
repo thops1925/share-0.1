@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Prompt from './Prompt';
 
 const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }) => {
+	console.log(data);
 	return (
 		<div className='mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3'>
 			{data.map((post: any) => (

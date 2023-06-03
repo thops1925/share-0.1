@@ -1,7 +1,10 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 type Props = {
 	post: {
@@ -12,6 +15,7 @@ type Props = {
 			image: string;
 			username: string;
 			email: string;
+			_id: string;
 		};
 	};
 	handleTagClick: any;
@@ -19,6 +23,8 @@ type Props = {
 	handleDelete: any;
 };
 const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
+	const pathname = usePathname();
+	const { data: session } = useSession();
 	const [copy, setCopy] = useState('');
 	const handleCopy = () => {
 		setCopy(post.prompt);
@@ -33,7 +39,7 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 					<Image src={post.creator.image} alt={post.name} width={40} height={40} className='rounded-full object-contain' />
 					<div className='flex flex-col '>
 						<h3 className='font-satoshi font-semibold text-gray-900 '>{post.creator.username}</h3>
-						<p className='text-sm text-gray-400'>{post.creator.email}</p>
+						<p className='text-sm text-gray-400'>{post.creator.email}</p>{' '}
 					</div>
 				</div>
 				<div
@@ -60,6 +66,16 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 			<p className='text-sm text-sky-500' onClick={() => handleTagClick && handleTagClick(post.tag)}>
 				#{post.tag}
 			</p>
+			{session?.user.id === post.creator._id && pathname === '/profile' && (
+				<div className='flex flex-row gap-3 mt-3'>
+					<p className='font-inter text-sm cursor-pointer font-bold text-sky-500' onClick={handleEdit}>
+						Edit
+					</p>
+					<p className='font-inter text-sm cursor-pointer font-bold' onClick={handleDelete}>
+						Delete
+					</p>
+				</div>
+			)}
 		</div>
 	);
 };

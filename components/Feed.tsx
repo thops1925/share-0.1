@@ -13,24 +13,13 @@ const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }
 	);
 };
 
-const Feed = () => {
+const Feed = ({ data }: any) => {
+	const post = data;
 	const [searchText, setSearchText] = useState('');
-	const [post, setPostData] = useState([]);
-
+	console.log(post);
 	const handleSearch = (e: any) => {
 		setSearchText(e.target.value);
 	};
-
-	useEffect(() => {
-		const fetchPost = async () => {
-			const response = await fetch('/api/prompt');
-			const data = await response.json();
-			setPostData(data);
-		};
-		fetchPost();
-	}, []);
-
-	console.log(searchText);
 
 	return (
 		<section className=' mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2'>

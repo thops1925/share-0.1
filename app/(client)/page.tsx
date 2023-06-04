@@ -4,7 +4,8 @@ import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
 
 const Home = async () => {
-	const data = await fetchAll();
+	const res: Promise<Post[]> = fetchAll();
+	const data = await res;
 	console.log(data);
 	return (
 		<section className='flex justify-center  items-center flex-col '>

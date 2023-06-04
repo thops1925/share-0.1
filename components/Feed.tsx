@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Prompt from './Prompt';
 
 const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }) => {
@@ -13,7 +13,11 @@ const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }
 	);
 };
 
-const Feed = ({ data }: any) => {
+type Props = {
+	data: Post[];
+};
+
+const Feed = ({ data }: Props) => {
 	const post = data;
 	const [searchText, setSearchText] = useState('');
 	console.log(post);

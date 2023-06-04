@@ -10,10 +10,8 @@ const MyProfile = async () => {
 	// const router = useRouter();
 	const { data: session } = useSession();
 
-	const post = session?.user.id && (await fetchProfile(session?.user.id));
-
-	console.log(post);
-
+	const data = session?.user.id && fetchProfile(session?.user.id);
+	const post = await data;
 	const handleEdit = (post: any) => {
 		// router.push(`/update-prompt?id=${post._id}`);
 	};

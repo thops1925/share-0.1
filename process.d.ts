@@ -93,11 +93,23 @@ interface OAuthConfig {
 	style: ProviderStyleType;
 }
 
-interface usersT {
-	user: {
-		name: string;
+// interface usersT {
+// 	user: {
+// 		name: string;
+// 		email: string;
+// 		image: string;
+// 		id: string;
+// 	};
+// }
+
+type Post = {
+	_id: string;
+	creator: {
+		_id: string;
 		email: string;
+		username: string;
 		image: string;
-		id: string;
 	};
-}
+	prompt: string;
+	tag: string;
+};

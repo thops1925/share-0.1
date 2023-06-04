@@ -20,7 +20,6 @@ type Props = {
 const Feed = ({ data }: Props) => {
 	const post = data;
 	const [searchText, setSearchText] = useState('');
-	console.log(post);
 	const handleSearch = (e: any) => {
 		setSearchText(e.target.value);
 	};

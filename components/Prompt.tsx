@@ -6,17 +6,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 type Props = {
-	post: {
-		name: string;
-		prompt: string;
-		tag: string;
-		creator: {
-			image: string;
-			username: string;
-			email: string;
-			_id: string;
-		};
-	};
+	post: Post;
 	handleTagClick: any;
 	handleEdit: any;
 	handleDelete: any;
@@ -25,6 +15,7 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 	const pathname = usePathname();
 	const { data: session } = useSession();
 	const [copy, setCopy] = useState('');
+
 	const handleCopy = () => {
 		setCopy(post.prompt);
 		navigator.clipboard.writeText(post.prompt);
@@ -35,7 +26,7 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 		<div className='flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit'>
 			<div className='flex justify-between items-start gap-5'>
 				<div className='flex flex-row justify-center items-center gap-3 cursor-pointer'>
-					<Image src={post.creator.image} alt={post.name} width={40} height={40} className='rounded-full object-contain' />
+					<Image src={post.creator.image} alt={post._id} width={40} height={40} className='rounded-full object-contain' />
 					<div className='flex flex-col '>
 						<h3 className='font-satoshi font-semibold text-gray-900 '>{post.creator.username}</h3>
 						<p className='text-sm text-gray-400'>{post.creator.email}</p>{' '}

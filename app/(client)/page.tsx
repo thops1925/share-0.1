@@ -6,7 +6,6 @@ import Image from 'next/image';
 const Home = async () => {
 	const res: Promise<Post[]> = fetchAll();
 	const data = await res;
-	console.log(data);
 	return (
 		<section className='flex justify-center  items-center flex-col '>
 			<div className=''>

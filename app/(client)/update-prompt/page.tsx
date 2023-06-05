@@ -13,9 +13,7 @@ const EditPrompt = async () => {
 	const { data: session } = useSession();
 	const id = searchParams.get('id');
 
-	// const res = session?.user.id && fetchEdit(searchParams.get('id'));
-	// const edit = await res;
-	console.log(id);
+	const res = session?.user.id && fetchEdit(id);
 
 	const [submitting, setIsSubmitting] = useState(false);
 	const [post, setPost] = useState({ prompt: '', tag: '' });

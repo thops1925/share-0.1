@@ -1,7 +1,9 @@
+import { BURL } from './url';
+
 export const fetchAll = async () => {
-	const response = await fetch('http://localhost:3000/api/prompt');
-	if (!response.ok) {
-		throw new Error('failed to fetch');
+	try {
+		return await (await fetch(`${BURL}/api/prompt`)).json();
+	} catch (error) {
+		console.log(error);
 	}
-	return response.json();
 };

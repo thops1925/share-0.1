@@ -30,14 +30,14 @@ const EditPrompt = () => {
 		if (id) getPromptDetails();
 	}, [id]);
 
-	const createPrompt = async (e: { preventDefault: () => void }) => {
+	const Edit = async (e: { preventDefault: () => void }) => {
 		e.preventDefault();
 		setIsSubmitting(true);
 		if (!id) return alert('Missing PromptId!');
 
 		try {
-			const response = await fetch('/api/prompt/new', {
-				method: 'POST',
+			const response = await fetch(`/api/prompt/${id}`, {
+				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -54,8 +54,7 @@ const EditPrompt = () => {
 		}
 	};
 
-	return <div>update</div>;
-	// return <Form type='Create' post={post} setPost={setPost} submitting={submitting} handleSubmit={createPrompt} />;
+	return <Form type='Save' post={post} setPost={setPost} submitting={submitting} handleSubmit={Edit} />;
 };
 
 export default EditPrompt;

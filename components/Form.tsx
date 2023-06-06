@@ -22,7 +22,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: Props) => {
 				onSubmit={handleSubmit}
 				className='mt-10 w-full max-w-2xl flex flex-col gap-7  rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5 '>
 				<label>
-					<span className='font-satoshi font-semibold text-base text-gray-700 '>Your AI </span>
+					<span className='font-satoshi font-semibold text-base text-gray-700 '>Your Code ... </span>
 					<textarea
 						value={post.prompt}
 						onChange={(e) => setPost({ ...post, prompt: e.target.value })}

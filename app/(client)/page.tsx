@@ -26,7 +26,7 @@ const Home = () => {
 				<Image src={logo} alt='logo' className='blur-0 object-contain' blurDataURL='data:...' placeholder='blur' />
 				<h1 className='text-7xl font-bold text-center mt-5 tracking-wider text-gray-800 capitalize '>snippet</h1>
 			</div>
-			<Feed postData={data} />
+			<Feed postData={data.reverse()} />
 		</section>
 	);
 };

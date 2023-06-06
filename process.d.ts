@@ -103,6 +103,7 @@ interface OAuthConfig {
 // }
 
 type Post = {
+	reverse(): unknown;
 	_id: string;
 	creator: {
 		_id: string;

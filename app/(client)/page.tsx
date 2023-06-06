@@ -1,20 +1,32 @@
+'use client';
 import Feed from '@components/Feed';
-import { fetchAll } from '@lib/fetchAll';
+import { BURL } from '@lib/url';
 import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
-import { use } from 'react';
+import { useState, useEffect } from 'react';
+const getAll = async () => {
+	const res = await fetch(`${BURL}/api/prompt`);
+	return res.json();
+};
 
 const Home = () => {
-	const data: Post[] = use(fetchAll());
+	const [data, setData] = useState([]);
 
-	console.log(data);
+	useEffect(() => {
+		const getAllData = async () => {
+			const postData = await getAll();
+			setData(postData);
+		};
+		getAllData();
+	}, []);
+
 	return (
 		<section className='flex justify-center  items-center flex-col '>
 			<div className=''>
-				<Image src={logo} alt='logo' className='blur-0 object-contain' />
-				<h1 className='text-7xl font-bold text-center mt-5 tracking-wider font-cookie text-gray-800'>Promp</h1>
+				<Image src={logo} alt='logo' className='blur-0 object-contain' blurDataURL='data:...' placeholder='blur' />
+				<h1 className='text-7xl font-bold text-center mt-5 tracking-wider text-gray-800 capitalize '>snippet</h1>
 			</div>
-			<Feed data={data} />
+			<Feed postData={data} />
 		</section>
 	);
 };

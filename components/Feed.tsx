@@ -2,25 +2,20 @@
 import React, { useState } from 'react';
 import Prompt from './Prompt';
 
-const PromptList = ({ data, handleTagClick }: { data: any; handleTagClick: any }) => {
+const PromptList = ({ data, handleTagClick }: { data: Post[]; handleTagClick: any }) => {
 	const rev = data.reverse();
 	return (
 		<div className='mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3'>
-			{rev.map((post: any) => (
+			{rev.map((post: Post) => (
 				<Prompt post={post} key={post._id} handleTagClick={handleTagClick} handleEdit={undefined} handleDelete={undefined} />
 			))}
 		</div>
 	);
 };
 
-type Props = {
-	data: Post[];
-};
-
-const Feed = ({ data }: Props) => {
-	const post = data;
+const Feed = ({ postData }: { postData: Post[] }) => {
 	const [searchText, setSearchText] = useState('');
-	const handleSearch = (e: any) => {
+	const handleSearch = (e: { target: { value: React.SetStateAction<string> } }) => {
 		setSearchText(e.target.value);
 	};
 
@@ -36,7 +31,7 @@ const Feed = ({ data }: Props) => {
 					className='block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0'
 				/>
 			</form>
-			<PromptList data={post} handleTagClick={() => {}} />
+			<PromptList data={postData} handleTagClick={() => {}} />
 		</section>
 	);
 };

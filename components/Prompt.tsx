@@ -51,11 +51,12 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 					)}
 				</div>
 			</div>
-
-			<p className='my-4 font-satoshi text-sm text-gray-700 '>{post.prompt}</p>
-			<p className='text-sm text-sky-500' onClick={() => handleTagClick && handleTagClick(post.tag)}>
+			<p className='text-sm text-sky-500 my-4' onClick={() => handleTagClick && handleTagClick(post.tag)}>
 				#{post.tag}
 			</p>
+
+			<code className='my-4 font-mono text-[12px] text-gray-700  whitespace-pre-line'>{post.prompt}</code>
+
 			{session?.user.id === post.creator._id && pathname === '/profile' && (
 				<div className='flex flex-row gap-3 mt-3'>
 					<p className='font-inter text-sm cursor-pointer font-bold text-sky-500' onClick={handleEdit}>

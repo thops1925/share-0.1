@@ -15,15 +15,15 @@ const MyProfile = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
 	const [post, setPost] = useState([]);
-	const rev = post.reverse();
 
 	useEffect(() => {
 		const controller = new AbortController();
 		const fetchProfile = async () => {
 			const data = await getProfile(session?.user.id);
-			setPost(data);
+			setPost(data.reverse());
 		};
 		if (session?.user.id) fetchProfile();
+
 		return () => {
 			// cancel the request before component unmounts
 			controller.abort();
@@ -33,11 +33,24 @@ const MyProfile = () => {
 	const handleEdit = (post: Post) => {
 		router.push(`/update-prompt?id=${post._id}`);
 	};
-	const handleDelete = async () => {};
+	const handleDelete = async (post: Post) => {
+		const hasConfirm = confirm('are you sure?');
+		if (hasConfirm) {
+			try {
+				await fetch(`/api/prompt/${post._id.toString()}`, {
+					method: 'DELETE',
+				});
+				const filterPost = post.filter((p: Post) => p._id !== post._id);
+				setPost(filterPost);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 
 	return (
 		<div>
-			<Profile name='My' desc='Profile Page' data={rev} handleEdit={handleEdit} handleDelete={handleDelete} />
+			<Profile name='My' desc='Profile Page' data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
 		</div>
 	);
 };

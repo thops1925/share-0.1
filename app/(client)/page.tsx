@@ -18,8 +18,7 @@ const Home = () => {
 		const controller = new AbortController();
 		const getAllData = async () => {
 			const postData = await getAll();
-			const rev = postData.reverse();
-			setData(rev);
+			setData(postData.reverse());
 		};
 		getAllData();
 		return () => {

@@ -101,17 +101,3 @@ interface OAuthConfig {
 // 		id: string;
 // 	};
 // }
-
-type Post = {
-	[x: string]: any;
-	reverse(): unknown;
-	_id: string;
-	creator: {
-		_id: string;
-		email: string;
-		username: string;
-		image: string;
-	};
-	prompt: string;
-	tag: string;
-};

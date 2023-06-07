@@ -2,6 +2,7 @@ import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import { connectToDB } from '@utils/database';
 import User from '@models/user';
+import { Profile } from 'next-auth/core/types';
 
 const handler = NextAuth({
 	providers: [
@@ -15,10 +16,11 @@ const handler = NextAuth({
 		async session({ session }: { session: any }) {
 			// store the user id from MongoDB to session
 			const sessionUser = await User.findOne({ email: session.user.email });
+			console.log(sessionUser);
 			session.user.id = sessionUser._id.toString();
 			return session;
 		},
-		async signIn({ profile }: { profile: any }) {
+		async signIn({ profile }: { profile: Profile | any }) {
 			try {
 				await connectToDB();
 

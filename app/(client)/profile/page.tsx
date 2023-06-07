@@ -18,8 +18,7 @@ const MyProfile = () => {
 	const rev = post.reverse();
 
 	useEffect(() => {
-		let isApiSubscribed = true;
-
+		const controller = new AbortController();
 		const fetchProfile = async () => {
 			const data = await getProfile(session?.user.id);
 			setPost(data);
@@ -27,7 +26,7 @@ const MyProfile = () => {
 		if (session?.user.id) fetchProfile();
 		return () => {
 			// cancel the request before component unmounts
-			isApiSubscribed = false;
+			controller.abort();
 		};
 	}, [session?.user.id]);
 

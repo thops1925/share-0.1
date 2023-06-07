@@ -4,7 +4,7 @@ import Profile from '@components/Profile';
 import { BURL } from '@lib/url';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const getProfile = async (id: any) => {
 	const res = await fetch(`${BURL}/api/users/${id}/posts`);
@@ -33,21 +33,24 @@ const MyProfile = () => {
 	const handleEdit = (post: Post) => {
 		router.push(`/update-prompt?id=${post._id}`);
 	};
-	const handleDelete = async (post: Post) => {
+
+	const handleDelete = async (del: Post) => {
 		const hasConfirm = confirm('are you sure?');
+
 		if (hasConfirm) {
 			try {
-				await fetch(`/api/prompt/${post._id.toString()}`, {
+				await fetch(`/api/prompt/${del._id.toString()}`, {
 					method: 'DELETE',
 				});
-				const filterPost = post.filter((p: Post) => p._id !== post._id);
-				setPost(filterPost);
+				const filteredPosts = post.filter((item: Post) => item._id !== del._id);
+
+				setPost(filteredPosts);
 			} catch (error) {
 				console.log(error);
 			}
 		}
 	};
-
+	if (!session) router.push('/');
 	return (
 		<div>
 			<Profile name='My' desc='Profile Page' data={post} handleEdit={handleEdit} handleDelete={handleDelete} />

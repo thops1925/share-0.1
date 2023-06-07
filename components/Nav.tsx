@@ -15,10 +15,10 @@ const Nav = () => {
 	console.log(provider);
 
 	useEffect(() => {
-		async () => {
-			const response: any = await getProviders();
-			setProvider(response);
-		};
+		(async () => {
+			const res: any = await getProviders();
+			setProvider(res);
+		})();
 	}, []);
 
 	return (
@@ -26,7 +26,7 @@ const Nav = () => {
 			<Link href='/' className='flex justify-center items-center'>
 				<Image src={logo} alt='logo' className='object-contain h-14 w-24 lg:h-20 lg:w-24 blur-0' />
 			</Link>
-			<DesktopNav provider={session} signOut={signOut} signIn={signIn} />
+			<DesktopNav providers={provider} signOut={signOut} signIn={signIn} />
 			<MobileViewNav provider={session} signOut={signOut} signIn={signIn} />
 		</nav>
 	);

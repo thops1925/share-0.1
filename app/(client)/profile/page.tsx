@@ -18,11 +18,17 @@ const MyProfile = () => {
 	const rev = post.reverse();
 
 	useEffect(() => {
+		let isApiSubscribed = true;
+
 		const fetchProfile = async () => {
 			const data = await getProfile(session?.user.id);
 			setPost(data);
 		};
 		if (session?.user.id) fetchProfile();
+		return () => {
+			// cancel the request before component unmounts
+			isApiSubscribed = false;
+		};
 	}, [session?.user.id]);
 
 	const handleEdit = (post: Post) => {

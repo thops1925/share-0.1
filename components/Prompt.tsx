@@ -57,7 +57,7 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 				#{post.tag}
 			</p>
 
-			<code className='my-4 font-mono text-[12px] text-gray-700  whitespace-pre-line'>{post.prompt}</code>
+			<code className='my-4 font-mono text-sm text-gray-700  whitespace-pre-line line-clamp-6'>{post.prompt}</code>
 
 			{session?.user.id === post.creator._id && pathname === '/profile' && (
 				<div className='flex flex-row gap-3 mt-3'>

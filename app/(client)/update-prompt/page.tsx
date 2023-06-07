@@ -19,6 +19,8 @@ const EditPrompt = () => {
 	const [post, setPost] = useState({ prompt: '', tag: '' });
 
 	useEffect(() => {
+		let isApiSubscribed = true;
+
 		const getPromptDetails = async () => {
 			const data = await getUpdate(id);
 			setPost({
@@ -28,6 +30,10 @@ const EditPrompt = () => {
 		};
 
 		if (id) getPromptDetails();
+		return () => {
+			// cancel the request before component unmounts
+			isApiSubscribed = false;
+		};
 	}, [id]);
 
 	const Edit = async (e: { preventDefault: () => void }) => {

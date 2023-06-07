@@ -16,8 +16,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }: Props) => {
 			<div className='mt-10 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3'>
 				{data.map((post: Post) => (
 					<Prompt
-						key={post._id}
 						post={post}
+						key={post._id}
 						handleTagClick={undefined}
 						handleEdit={() => handleEdit && handleEdit(post)}
 						handleDelete={() => handleDelete && handleDelete(post)}

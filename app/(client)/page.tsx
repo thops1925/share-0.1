@@ -13,10 +13,9 @@ const getAll = async () => {
 
 const Home = () => {
 	const [data, setData] = useState([]);
-	const [array, setArray] = useState([]);
 
 	useEffect(() => {
-		let isApiSubscribed = true;
+		const controller = new AbortController();
 		const getAllData = async () => {
 			const postData = await getAll();
 			const rev = postData.reverse();
@@ -25,7 +24,7 @@ const Home = () => {
 		getAllData();
 		return () => {
 			// cancel the request before component unmounts
-			isApiSubscribed = false;
+			controller.abort();
 		};
 	}, []);
 

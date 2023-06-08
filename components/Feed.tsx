@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Prompt from './Prompt';
 
 const PromptList = ({ data, handleTagClick }: { data: Post[]; handleTagClick: any }) => {
@@ -17,6 +17,7 @@ const Feed = ({ postData }: { postData: Post[] }) => {
 	const handleSearch = (e: { target: { value: React.SetStateAction<string> } }) => {
 		setSearchText(e.target.value);
 	};
+	useEffect(() => {}, []);
 
 	return (
 		<section className=' mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2'>

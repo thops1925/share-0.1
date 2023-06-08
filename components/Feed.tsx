@@ -14,10 +14,20 @@ const PromptList = ({ data, handleTagClick }: { data: Post[]; handleTagClick: an
 
 const Feed = ({ postData }: { postData: Post[] }) => {
 	const [searchText, setSearchText] = useState('');
+	const [searchData, setSearchData] = useState([]);
+
 	const handleSearch = (e: { target: { value: React.SetStateAction<string> } }) => {
 		setSearchText(e.target.value);
 	};
-	useEffect(() => {}, []);
+
+	useEffect(() => {
+		const filterSearch = (searchText: string) => {
+			const regex = new RegExp(searchText, 'i'); // 'i' flag for case-insensitive search
+			const res = postData.filter((item: Post) => regex.test(item.creator.username) || regex.test(item.prompt) || regex.test(item.tag));
+			setSearchData(res);
+		};
+		filterSearch(searchText);
+	}, [postData, searchText]);
 
 	return (
 		<section className=' mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2'>
@@ -31,7 +41,7 @@ const Feed = ({ postData }: { postData: Post[] }) => {
 					className='block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0'
 				/>
 			</form>
-			<PromptList data={postData} handleTagClick={() => {}} />
+			{searchText ? <PromptList data={searchData} handleTagClick={() => {}} /> : <PromptList data={postData} handleTagClick={() => {}} />}
 		</section>
 	);
 };

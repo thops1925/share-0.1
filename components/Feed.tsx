@@ -4,7 +4,7 @@ import Prompt from './Prompt';
 
 const PromptList = ({ data, handleTagClick }: { data: Post[]; handleTagClick: any }) => {
 	return (
-		<div className='mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3'>
+		<div className='space-y-4 py-4 sm:columns-2 sm:gap-6 xl:columns-3'>
 			{data.map((post: Post) => (
 				<Prompt post={post} key={post._id} handleTagClick={handleTagClick} handleEdit={undefined} handleDelete={undefined} />
 			))}
@@ -16,21 +16,24 @@ const Feed = ({ postData }: { postData: Post[] }) => {
 	const [searchText, setSearchText] = useState('');
 	const [searchData, setSearchData] = useState([]);
 
-	const handleSearch = (e: { target: { value: React.SetStateAction<string> } }) => {
+	const handleSearch = (e: any) => {
+		e.preventDefault();
 		setSearchText(e.target.value);
 	};
 
+	const filterSearch = (searchText: string) => {
+		const regex = new RegExp(searchText, 'i'); // 'i' flag for case-insensitive search
+		const res: any = postData.filter((item: Post) => regex.test(item.creator.username) || regex.test(item.prompt) || regex.test(item.tag));
+		setSearchData(res);
+	};
+
 	useEffect(() => {
-		const filterSearch = (searchText: string) => {
-			const regex = new RegExp(searchText, 'i'); // 'i' flag for case-insensitive search
-			const res = postData.filter((item: Post) => regex.test(item.creator.username) || regex.test(item.prompt) || regex.test(item.tag));
-			setSearchData(res);
-		};
 		filterSearch(searchText);
-	}, [postData, searchText]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchText]);
 
 	return (
-		<section className=' mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2'>
+		<section className='mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2'>
 			<form className='relative w-full flex justify-center items-center'>
 				<input
 					type='text'
@@ -38,7 +41,7 @@ const Feed = ({ postData }: { postData: Post[] }) => {
 					value={searchText}
 					onChange={handleSearch}
 					required
-					className='block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0'
+					className='block w-full my-6 rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0'
 				/>
 			</form>
 			{searchText ? <PromptList data={searchData} handleTagClick={() => {}} /> : <PromptList data={postData} handleTagClick={() => {}} />}

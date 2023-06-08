@@ -1,6 +1,7 @@
 'use client';
 
 import Profile from '@components/Profile';
+import { desc } from '@lib/desc';
 import { BURL } from '@lib/url';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -53,7 +54,7 @@ const MyProfile = () => {
 	if (!session) router.push('/');
 	return (
 		<div>
-			<Profile name='My' desc='Profile Page' data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
+			<Profile name='Profile' desc={desc} data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
 		</div>
 	);
 };

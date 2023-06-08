@@ -12,7 +12,6 @@ const Nav = () => {
 	const { data: session } = useSession();
 
 	const [provider, setProvider] = useState(null);
-	console.log(provider);
 
 	useEffect(() => {
 		(async () => {
@@ -22,7 +21,7 @@ const Nav = () => {
 	}, []);
 
 	return (
-		<nav className='flex justify-between items-center mb-16 pt-3 '>
+		<nav className='flex justify-between items-center '>
 			<Link href='/' className='flex justify-center items-center'>
 				<Image src={logo} alt='logo' className='object-contain h-14 w-24 lg:h-20 lg:w-24 blur-0' />
 			</Link>

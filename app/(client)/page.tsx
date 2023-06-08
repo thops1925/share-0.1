@@ -1,5 +1,6 @@
 'use client';
 import Feed from '@components/Feed';
+import { desc } from '@lib/desc';
 import { BURL } from '@lib/url';
 import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
@@ -28,10 +29,10 @@ const Home = () => {
 	}, []);
 
 	return (
-		<section className='flex justify-center  items-center flex-col '>
-			<div className=''>
+		<section className='flex justify-center items-center flex-col '>
+			<div className='mx-auto w-full max-w-7xl flex justify-center items-center flex-row gap-2'>
+				<h1 className='text-normal font-mono text-center tracking-wider text-gray-800 '>{desc}</h1>
 				<Image src={logo} alt='logo' className='blur-0 object-contain' blurDataURL='data:...' placeholder='blur' />
-				<h1 className='text-7xl font-bold text-center mt-5 tracking-wider text-gray-800 capitalize '>snippet</h1>
 			</div>
 			<Feed postData={data} />
 		</section>

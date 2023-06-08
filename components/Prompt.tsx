@@ -3,8 +3,7 @@
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 type Props = {
 	post: Post;
@@ -13,6 +12,7 @@ type Props = {
 	handleDelete: any;
 };
 const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
+	const router = useRouter();
 	const pathname = usePathname();
 	const { data: session } = useSession();
 	const [copy, setCopy] = useState('');
@@ -23,11 +23,15 @@ const Prompt = ({ post, handleTagClick, handleEdit, handleDelete }: Props) => {
 		setTimeout(() => setCopy(''), 3000);
 	};
 
+	const handleProfile = () => {
+		if (post.creator._id === session?.user.id) return router.push('/profile');
+		router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+	};
 	return (
 		<div
 			className='flex-1 break-inside-avoid rounded-lg border border-gray-300
-		 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit'>
-			<div className='flex justify-between items-start gap-5'>
+		 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[410px] w-full h-fit'>
+			<div className='flex justify-between items-start gap-5' onClick={handleProfile}>
 				<div className='flex flex-row justify-center items-center gap-3 cursor-pointer'>
 					<Image src={post.creator.image} alt={post._id} width={40} height={40} className='rounded-full object-contain' />
 					<div className='flex flex-col '>
